@@ -1,3 +1,19 @@
+# 命名規則
+## commit message
+[○○] メッセージ/issue#○
+[]の中
+
+- add
+- fix
+- delete
+
+ex: [add] ログインボタンの追加/issue#1
+
+## branch name
+issue/#○
+
+ex: issue/#1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
