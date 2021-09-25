@@ -1,6 +1,6 @@
 # 命名規則
 ## commit message
-[○○] メッセージ/issue#○
+[○○] メッセージ/issue#○ 
 []の中
 
 - add
