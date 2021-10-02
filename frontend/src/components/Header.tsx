@@ -6,7 +6,7 @@ const Header: React.FC = () => (
   <AppBar>
     <Toolbar>
       <img  className="header-logo-image" src={HeaderLogoImage} alt="taskusa logo"/>
-      ログアウト
+      ログアウトしたい！
     </Toolbar>
   </AppBar>
 );
