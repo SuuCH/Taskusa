@@ -1,8 +1,8 @@
-import React from "react";
+import type { VFC } from "react";
 import { AppBar, Toolbar } from "@material-ui/core";
 import HeaderLogoImage from "../images/logo_taskusa.png";
 
-const Header: React.FC = () => (
+const Header: VFC = () => (
   <AppBar>
     <Toolbar>
       <img

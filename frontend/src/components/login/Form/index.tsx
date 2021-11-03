@@ -1,7 +1,7 @@
-import React from "react";
+import type { VFC } from "react";
 import { TextField } from "@material-ui/core";
 
-const Form: React.FC = () => {
+const Form: VFC = () => {
   return (
     <>
       <form noValidate autoComplete="off">

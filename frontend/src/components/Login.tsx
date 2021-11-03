@@ -1,4 +1,4 @@
-import React from "react";
+import type { VFC } from "react";
 import {
   Container,
   createStyles,
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Login: React.FC = () => {
+const Login: VFC = () => {
   const classes = useStyles();
 
   return (

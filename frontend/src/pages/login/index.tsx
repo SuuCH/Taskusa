@@ -1,10 +1,10 @@
-import React from "react";
+import type { VFC } from "react";
 import { Form } from "../../components/login/Form";
 
-const Login: React.FC = () => (
+const Login: VFC = () => (
   <>
     <Form />
   </>
 );
 
-export default Login;
+export {Login};
