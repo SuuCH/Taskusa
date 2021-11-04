@@ -7,18 +7,20 @@ interface Props {
   onClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const BaseButton: VFC<Props> = ({ text, color, onClick}) => {
+const BaseButton: VFC<Props> = ({ text, color, onClick }) => {
   return (
-    <Button
-      style={{
-        backgroundColor: color,
-        borderRadius: "20px 20px 20px 20px",
-        color: "white",
-      }}
-      onClick={onClick}
-    >
-      {text}
-    </Button>
+    <>
+      <Button
+        style={{
+          backgroundColor: color,
+          borderRadius: "20px 20px 20px 20px",
+          color: "white",
+        }}
+        onClick={onClick}
+      >
+        {text}
+      </Button>
+    </>
   );
 };
 
