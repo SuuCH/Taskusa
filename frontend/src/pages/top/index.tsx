@@ -1,13 +1,11 @@
 import type { VFC } from "react";
 
 const Top: VFC = () => {
-  return(
+  return (
     <>
-      <div>
-        aiueo
-      </div>
+      <div>aiueo</div>
     </>
   );
-}
+};
 
 export { Top };
