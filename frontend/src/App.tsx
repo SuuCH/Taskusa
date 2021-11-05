@@ -1,12 +1,17 @@
-import { Toolbar } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import React from 'react';
-import './App.css';
-import logo from './logo.svg';
-import Header from './components/Header';
+import React from "react";
+import { Login } from "./pages/login";
+import { Top } from "./pages/top";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App: React.FC = () => (
-  <Header />
+  <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/top" element={<Top />} />
+      </Routes>
+    </BrowserRouter>
+  </>
 );
 
 export default App;
