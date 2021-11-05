@@ -1,9 +1,10 @@
 import { BaseButton } from "../../components/utils/BaseButton";
 import { Form } from "../../components/login/Form";
 import { MainPanel } from "../../components/login/MainPanel";
-import LogoTaskusa from "../../images/LogoTaskusa.png";
 import type { VFC } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./index.module.css";
+import LogoTaskusa from "../../images/LogoTaskusaNotMargin.png";
 
 const Login: VFC = () => {
   const navigate = useNavigate();
@@ -14,15 +15,22 @@ const Login: VFC = () => {
   };
   return (
     <>
-      <MainPanel>
-        <img src={LogoTaskusa} alt="logo" />
-        <Form />
-        <BaseButton
-          text="ログイン"
-          color="#06681B"
-          onClick={handleOnClickLoginButton}
-        />
-      </MainPanel>
+      <div className={styles.panel}>
+        <MainPanel>
+          <div className={styles.imageArea}>
+            <img className={styles.image} src={LogoTaskusa} alt="logo" />
+          </div>
+          <Form />
+          <div className={styles.buttonArea}>
+            <BaseButton
+              className={styles.button}
+              text="ログイン"
+              color="#06681B"
+              onClick={handleOnClickLoginButton}
+            />
+          </div>
+        </MainPanel>
+      </div>
     </>
   );
 };
