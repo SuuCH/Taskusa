@@ -1,0 +1,12 @@
+.button{
+  position: absolute;
+  right: 0px;
+  margin-right:30px ;
+}
+.image {
+  width: 100px;
+  height: auto;
+}
+.navber {
+  max-height: 55px;
+}
