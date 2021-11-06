@@ -9,7 +9,7 @@ interface Props {
   onClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const BaseButton: VFC<Props> = ({ text, className , color, onClick ,}) => {
+const BaseButton: VFC<Props> = ({ text, className, color, onClick }) => {
   return (
     <>
       <Button
