@@ -1,0 +1,24 @@
+.button {
+  margin: 30px;
+  width: 30%;
+}
+.buttonArea {
+  margin-top: 30px;
+  text-align: center;
+}
+.image {
+  height: auto;
+  margin: 44px 0 0 0;
+  width: 319px;
+}
+.imageArea {
+  width: inherit;
+  height: auto;
+  text-align: center;
+}
+.panel {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}

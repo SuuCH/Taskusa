@@ -1,17 +1,24 @@
 import type { VFC } from "react";
 import { TextField } from "@material-ui/core";
+import styles from "./index.module.css";
 
 const Form: VFC = () => {
   return (
     <>
-      <form noValidate autoComplete="off">
-        <TextField id="standard-basic" label="E-mail" style={{ backgroundColor: "white" }}/>
+      <form autoComplete="off" className={styles.form} noValidate>
         <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
+          className={styles.textForm}
+          label="E-mail"
+          variant="outlined"
+          style={{ backgroundColor: "white", margin: "25px 25px 0 25px" }}
+        />
+        <TextField
           autoComplete="current-password"
-          style={{ backgroundColor: "white" }}
+          className={styles.textForm}
+          label="Password"
+          variant="outlined"
+          style={{ backgroundColor: "white", margin: "25px 25px 0 25px" }}
+          type="password"
         />
       </form>
     </>
