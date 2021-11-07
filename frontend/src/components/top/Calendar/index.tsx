@@ -43,12 +43,22 @@ const Calendar: VFC = () => {
             // ]
           }
           classForValue={
-            (value: DateAndCount) =>
-              `color-grass-${value.count < 5 ? value.count : "5"}`
-            // if (!value) {
-            //   return "color-empty";
-            // }
-            // return `color-grass-${value.count}`;
+            (value: DateAndCount) => {
+              switch(value.count) {
+                case 0 :
+                  return styles.colorGrass0
+                case 1 : 
+                  return styles.colorGrass1
+                case 2 : 
+                  return styles.colorGrass2
+                case 3 : 
+                  return styles.colorGrass3
+                case 4 : 
+                  return styles.colorGrass4
+                case 5 : 
+                  return styles.colorGrass5
+              }
+            }
           }
           tooltipDataAttrs={(value: DateAndCount) => {
             return {
@@ -58,7 +68,7 @@ const Calendar: VFC = () => {
             };
           }}
           showWeekdayLabels={true}
-          onClick={(value) =>
+          onClick={(value:DateAndCount) =>
             alert(`Clicked on value with count: ${value.count}`)
           }
         />
