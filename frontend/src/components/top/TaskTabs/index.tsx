@@ -52,8 +52,6 @@ const TaskTabs: VFC = () => {
           onChange={handleChange}
           variant="fullWidth"
           TabIndicatorProps={{ style: { background: "#8EF3AA" } }}
-          // indicatorColor="primary"
-          // textColor="primary"
         >
           <Tab
             label={
