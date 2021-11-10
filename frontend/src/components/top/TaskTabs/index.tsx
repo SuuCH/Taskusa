@@ -1,15 +1,17 @@
-import { VFC } from "react";
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { useState } from "react";
+import type { ChangeEvent, VFC } from "react";
 import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
-import { Box, Typography } from "@material-ui/core";
-
-// import styles from "./index.module.css";
+import {
+  makeStyles,
+  Paper,
+  Tabs,
+  Tab,
+  createTheme,
+  ThemeProvider,
+} from "@material-ui/core";
+import { TabPanel } from "../TabPanel";
 
 const useStyles = makeStyles({
   root: {
@@ -19,102 +21,94 @@ const useStyles = makeStyles({
   },
 });
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+const theme = createTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+        "&:hover": {
+          backgroundColor: "#8EF3AA",
+        },
+      },
+      textColorInherit: {
+        color: "#06681B",
+      },
+    },
+  },
+});
 
 const TaskTabs: VFC = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <Paper square className={classes.root}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="fullWidth"
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <Tab
-          label={
-            <div>
-              <CheckBoxOutlineBlankOutlinedIcon
-                style={{
-                  verticalAlign: "middle",
-                  marginBottom: 2,
-                  marginRight: 6,
-                }}
-              />
-              未完了
-            </div>
-          }
-        />
-        <Tab
-          label={
-            <div>
-              <ListAltOutlinedIcon
-                style={{
-                  verticalAlign: "middle",
-                  marginBottom: 2,
-                  marginRight: 6,
-                }}
-              />
-              予定
-            </div>
-          }
-        />
-        <Tab
-          label={
-            <div>
-              <CheckBoxOutlinedIcon
-                style={{
-                  verticalAlign: "middle",
-                  marginBottom: 2,
-                  marginRight: 6,
-                }}
-              />
-              完了済
-            </div>
-          }
-        />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </Paper>
+    <ThemeProvider theme={theme}>
+      <Paper square className={classes.root}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          variant="fullWidth"
+          TabIndicatorProps={{ style: { background: "#8EF3AA" } }}
+          // indicatorColor="primary"
+          // textColor="primary"
+        >
+          <Tab
+            label={
+              <div>
+                <CheckBoxOutlineBlankOutlinedIcon
+                  style={{
+                    verticalAlign: "middle",
+                    marginBottom: 2,
+                    marginRight: 6,
+                  }}
+                />
+                未完了
+              </div>
+            }
+          />
+          <Tab
+            label={
+              <div>
+                <ListAltOutlinedIcon
+                  style={{
+                    verticalAlign: "middle",
+                    marginBottom: 2,
+                    marginRight: 6,
+                  }}
+                />
+                予定
+              </div>
+            }
+          />
+          <Tab
+            label={
+              <div>
+                <CheckBoxOutlinedIcon
+                  style={{
+                    verticalAlign: "middle",
+                    marginBottom: 2,
+                    marginRight: 6,
+                  }}
+                />
+                完了済
+              </div>
+            }
+          />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          Item One
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
+      </Paper>
+    </ThemeProvider>
   );
 };
 
