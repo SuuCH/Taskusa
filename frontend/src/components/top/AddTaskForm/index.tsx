@@ -27,6 +27,7 @@ const AddTaskForm: VFC = () => {
               hiddenLabel
               placeholder="タスクを入力してください"
               variant="outlined"
+              style={{marginRight: "30px"}}
             />
           </form>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -40,7 +41,7 @@ const AddTaskForm: VFC = () => {
             />
           </MuiPickersUtilsProvider>
           <BaseButton
-            className={styles.button}
+            className={styles.addButton}
             color="#24C075"
             text="追加"
             onClick={handleClickTaskAddButton}
