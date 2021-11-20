@@ -17,9 +17,9 @@ jobs:
       - run: cd ./frontend && yarn install && yarn build
 
       - name: Firebase-deploy
-      - entryPoint: ./frontend
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: ./frontend
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TASKUSA_TODO_APP }}'
           channelId: live
