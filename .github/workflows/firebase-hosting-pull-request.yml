@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-
+      - name: move project dir
+        run: cd ./frontend
       - name: pkg install and buikd
-        run: cd ./frontend 
         env: 
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
         run: yarn install && yarn build
