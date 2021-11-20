@@ -1,4 +1,4 @@
-import type { MouseEventHandler, VFC } from "react";
+import type { VFC } from "react";
 import clsx from "clsx";
 import { Button } from "@material-ui/core";
 
@@ -6,15 +6,16 @@ interface Props {
   className?: string;
   text: string;
   color?: string;
-  onClick: MouseEventHandler<HTMLButtonElement> | undefined;
+  // onClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const BaseButton: VFC<Props> = ({ text, className, color, onClick }) => {
+const BaseButton: VFC<Props> = ({ text, className, color }) => {
   return (
     <>
       <Button
+        type="submit"
         className={clsx(className)}
-        onClick={onClick}
+        // onClick={onClick}
         style={{
           backgroundColor: color,
           borderRadius: "20px 20px 20px 20px",
