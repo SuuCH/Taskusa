@@ -5,9 +5,8 @@ import { TextField } from "@material-ui/core";
 import styles from "./index.module.css";
 import loginWithEmail from "../../../api/authentication/loginWithEmail";
 import { BaseButton } from "../../utils/BaseButton";
-import signupWithEmail from "../../../api/authentication/signupWithEmail";
 import { onAuthStateChanged } from "firebase/auth";
-import auth from "../../../api/firebase";
+import {auth} from "../../../api/firebase";
 
 const Form: VFC = () => {
   const navigate = useNavigate();
@@ -17,9 +16,8 @@ const Form: VFC = () => {
 
   const handleOnClickLoginButton = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    signupWithEmail(email, password);
+    loginWithEmail(email, password);
     console.log(email, password);
-    // navigate("/top");
   };
 
   const handleChangeEmail = (
@@ -37,7 +35,7 @@ const Form: VFC = () => {
     onAuthStateChanged(auth, (user) => {
       user && navigate("/top");
     });
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -71,7 +69,6 @@ const Form: VFC = () => {
             className={styles.button}
             text="ログイン"
             color="#06681B"
-            // onClick={handleOnClickLoginButton}
           />
         </div>
       </form>
