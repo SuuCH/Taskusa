@@ -4,6 +4,7 @@ import { Calendar } from "../../components/top/Calendar";
 import { Navber } from "../../components/top/Navber";
 import { TaskPanel } from "../../components/top/TaskPanel";
 import { TaskTabs } from "../../components/top/TaskTabs";
+import { Footer } from "../../components/utils/Footer";
 import styles from "./index.module.css";
 
 const Top: VFC = () => {
@@ -33,6 +34,7 @@ const Top: VFC = () => {
         onClick2={handleOnClickDeleteButton}
       />
       <TaskTabs />
+      <Footer />
     </>
   );
 };
