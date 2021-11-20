@@ -1,4 +1,5 @@
-import type { VFC } from "react";
+import clsx from "clsx";
+import type { MouseEventHandler, VFC } from "react";
 import { List, ListItem } from "@material-ui/core";
 import styles from "./index.module.css";
 import { BaseButton } from "../../utils/BaseButton";
@@ -7,18 +8,30 @@ interface Task {
   id: number;
   content: string;
 }
-const TaskPanel: VFC = () => {
-  const dummyData: Task[] = [
-    { id: 1, content: "あいうえお" },
-    { id: 2, content: "かきくけこ" },
-    { id: 3, content: "さしすせそ" },
-  ];
-  const handleOnClickCompleteButton = (): void => {
-    console.log("完了押した");
-  };
-  const handleOnClickDeleteButton = (): void => {
-    console.log("削除押した");
-  };
+
+interface Props {
+  title: string;
+  taskData: Task[];
+  buttonLabel1: string;
+  buttonLabel2?: string;
+  buttonColor1: string;
+  buttonColor2?: string;
+  className?: string;
+  onClick1: MouseEventHandler<HTMLButtonElement>;
+  onClick2: MouseEventHandler<HTMLButtonElement>;
+}
+
+const TaskPanel: VFC<Props> = ({
+  title,
+  taskData,
+  buttonLabel1,
+  buttonLabel2 = "削除",
+  buttonColor1,
+  buttonColor2 = "#E73152",
+  className="",
+  onClick1,
+  onClick2,
+}: Props) => {
   const TaskListItem = (datas: Task[]): JSX.Element[] => {
     return datas.map((data) => {
       return (
@@ -27,15 +40,15 @@ const TaskPanel: VFC = () => {
           <div className={styles.taskButtonWrapper}>
             <div className={styles.completeButton}>
               <BaseButton
-                color="#24C075"
-                onClick={handleOnClickCompleteButton}
-                text="完了"
+                color={buttonColor1}
+                onClick={onClick1}
+                text={buttonLabel1}
               />
             </div>
             <BaseButton
-              color="#E73152"
-              onClick={handleOnClickDeleteButton}
-              text="削除"
+              color={buttonColor2}
+              onClick={onClick2}
+              text={buttonLabel2}
             />
           </div>
         </ListItem>
@@ -44,9 +57,9 @@ const TaskPanel: VFC = () => {
   };
   return (
     <>
-      <div className={styles.panel}>
-        <p className={styles.panelTitle}>本日のたすく！</p>
-        <List style={{ fontSize: "20px" }}>{TaskListItem(dummyData)}</List>
+      <div className={clsx(styles.panel,className)}>
+        <p className={styles.panelTitle}>{title}</p>
+        <List style={{ fontSize: "20px" }}>{TaskListItem(taskData)}</List>
       </div>
     </>
   );
