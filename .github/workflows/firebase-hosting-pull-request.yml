@@ -10,12 +10,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: move project dir
-        run: cd ./frontend
       - name: pkg install and buikd
         env: 
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
-        run: yarn install && yarn build
+        run: cd ./frontend && yarn install && yarn build
       - name: firebase ci and deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
