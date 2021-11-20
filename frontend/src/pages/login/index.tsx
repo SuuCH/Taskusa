@@ -5,6 +5,7 @@ import type { VFC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
 import LogoTaskusa from "../../images/LogoTaskusaNotMargin.png";
+import { Footer } from "../../components/utils/Footer";
 
 const Login: VFC = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Login: VFC = () => {
           </div>
         </MainPanel>
       </div>
+      <Footer />
     </>
   );
 };
