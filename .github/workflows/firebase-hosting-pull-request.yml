@@ -16,7 +16,7 @@ jobs:
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
       - name: firebase ci and deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
-          with:
-            repoToken: "${{ secrets.GITHUB_TOKEN }}"
-            firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TASKUSA_TODO_APP }}"
-            projectId: taskusa-todo-app
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TASKUSA_TODO_APP }}"
+          projectId: taskusa-todo-app
