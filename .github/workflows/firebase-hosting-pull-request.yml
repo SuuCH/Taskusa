@@ -8,7 +8,6 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - entrypoint: ./frontend
       - uses: actions/checkout@v2
       - run: cd ./frontend && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
