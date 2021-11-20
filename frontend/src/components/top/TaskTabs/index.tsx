@@ -59,9 +59,16 @@ const TaskTabs: VFC = () => {
     console.log("削除押した");
   };
   return (
-    <div style={{marginBottom: "200px"}}>
+    <div style={{ marginBottom: "200px" }}>
       <ThemeProvider theme={theme}>
-        <Paper square className={classes.root}>
+        <Paper
+          square
+          className={classes.root}
+          style={{
+            borderRadius: "10px",
+            boxShadow: "0px 1px 1px rgba(0, 0, 0, 0.25)",
+          }}
+        >
           <Tabs
             value={value}
             onChange={handleChange}
@@ -69,6 +76,7 @@ const TaskTabs: VFC = () => {
             TabIndicatorProps={{ style: { background: "#8EF3AA" } }}
           >
             <Tab
+              style={{backgroundColor:"#DAF8E7"}}
               label={
                 <div>
                   <CheckBoxOutlineBlankOutlinedIcon
@@ -83,6 +91,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
+              style={{backgroundColor:"#DAF8E7"}}
               label={
                 <div>
                   <ListAltOutlinedIcon
@@ -97,6 +106,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
+              style={{backgroundColor:"#DAF8E7"}}
               label={
                 <div>
                   <CheckBoxOutlinedIcon
