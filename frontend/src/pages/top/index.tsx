@@ -1,7 +1,6 @@
 import type { VFC } from "react";
 import { AddTaskForm } from "../../components/top/AddTaskForm";
 import { Calendar } from "../../components/top/Calendar";
-import { Footer } from "../../components/utils/Footer";
 import { Navber } from "../../components/top/Navber";
 import { TaskPanel } from "../../components/top/TaskPanel";
 import { TaskTabs } from "../../components/top/TaskTabs";
