@@ -10,14 +10,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: make env
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
-          directory: ./frontend
-          file_name: .env
+
       - name: pkg install and buikd
-        run: cd ./frontend && yarn install && yarn build
+        run: cd ./frontend 
+        env: 
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+        run: yarn install && yarn build
       - name: firebase ci and deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
