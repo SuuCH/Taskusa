@@ -6,7 +6,7 @@ import styles from "./index.module.css";
 import loginWithEmail from "../../../api/authentication/loginWithEmail";
 import { BaseButton } from "../../utils/BaseButton";
 import { onAuthStateChanged } from "firebase/auth";
-import {auth} from "../../../api/firebase";
+import { auth } from "../../../api/firebase";
 
 const Form: VFC = () => {
   const navigate = useNavigate();
