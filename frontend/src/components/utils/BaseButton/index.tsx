@@ -6,13 +6,19 @@ interface Props {
   className?: string;
   text: string;
   color?: string;
-  onClick: MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const BaseButton: VFC<Props> = ({ text, className, color, onClick }) => {
+const BaseButton: VFC<Props> = ({
+  text,
+  className,
+  color,
+  onClick = undefined,
+}) => {
   return (
     <>
       <Button
+        type="submit"
         className={clsx(className)}
         onClick={onClick}
         style={{
