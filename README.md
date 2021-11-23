@@ -25,7 +25,7 @@ ex:[feat] ヘッダーの追加
   - chore:雑用系の事項（Readmeの編集やライブラリのverアップなど）
   - style:スタイルのみの変更
 - 追加した内容を書く。一目でわかるようにする
-- issueがない場合は記載はいらないが基本的にissueを立てる
+- issueがない場合は基本的にissueを立てる（雑用性の高いものは例外）
 ## ブランチ戦略
 ex:feat/add-header
 - ~~/:ブランチで行う対応の種類を記載（feat/fix/refactor/chore/style）
