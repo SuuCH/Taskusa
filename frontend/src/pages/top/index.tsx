@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddTaskForm } from "../../components/top/AddTaskForm";
 import { Calendar } from "../../components/top/Calendar";
 import { Navber } from "../../components/top/Navber";
 import { TaskPanel } from "../../components/top/TaskPanel";
 import { TaskTabs } from "../../components/top/TaskTabs";
 import { Footer } from "../../components/utils/Footer";
+import { firebaseFirestore } from "../../api/firebase";
+
+import { getDoc, doc, updateDoc } from "@firebase/firestore";
 
 import type { ChangeEvent, VFC } from "react";
 
@@ -16,7 +19,47 @@ const Top: VFC = () => {
   const [finishedTodoList, setFinishedTodoList] = useState(
     [] as (string | undefined)[]
   );
+  const [isLoading, setIsLoading] = useState(true);
+  const [isChangedTodo, setIsChangedTodo] = useState(false);
+  const [isChangedFinishedTodo, setIsChangedFiished] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      console.log(firebaseFirestore);
+      const responseTodo = await getDoc(
+        doc(firebaseFirestore, "todoList/todo")
+      );
+      setTodoList(responseTodo.data()?.tasks);
+      setIsLoading(false);
+    })();
+  }, [firebaseFirestore]);
+
+  useEffect(() => {
+    if (isChangedTodo) {
+      (async () => {
+        setIsLoading(true);
+        const docRef = await updateDoc(
+          doc(firebaseFirestore, "todoList/todo"),
+          { tasks: todoList }
+        );
+        setIsLoading(false);
+      })();
+    }
+  }, [todoList, isChangedTodo, firebaseFirestore]);
+
+  useEffect(() => {
+    if (isChangedFinishedTodo) {
+      (async () => {
+        setIsLoading(true);
+        const docRef = await updateDoc(
+          doc(firebaseFirestore, "todoList/finishedTodo"),
+          { tasks: finishedTodoList }
+        );
+        setIsLoading(false);
+      })();
+    }
+    setIsChangedFiished(false);
+  }, [firebaseFirestore, finishedTodoList, isChangedFinishedTodo]);
   // タスク入力フォームのハンドラ
   const handleChangeTaskInputForm = (
     e: ChangeEvent<HTMLInputElement>
@@ -27,6 +70,7 @@ const Top: VFC = () => {
   // タスク追加ボタンハンドラ
   const handleClickTaskAddButton = (): void => {
     if (!!input) {
+      setIsChangedTodo(true);
       setTodoList([...todoList, input]);
       setInput("");
     } else {
@@ -41,6 +85,8 @@ const Top: VFC = () => {
 
   // 本日タスクの完了ボタンハンドラ
   const handleOnClickCompleteButton = (index: number): void => {
+    setIsChangedTodo(true);
+    setIsChangedFiished(true);
     setTodoList(todoList.filter((_, idx) => idx !== index));
     setFinishedTodoList([
       ...finishedTodoList,
@@ -48,13 +94,16 @@ const Top: VFC = () => {
     ]);
   };
 
-  // 完了済みタスクボタンハンドラ
+  // 完了済みタスク削除ボタンハンドラ
   const handleOnClickFinishedTaskDeleteButton = (index: number) => {
+    setIsChangedFiished(true);
     setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
   };
 
-  // 未完了ボタンハンドラ
+  // もとに戻すボタンハンドラ
   const handleOnClickNotCompleteButton = (index: number) => {
+    setIsChangedTodo(true);
+    setIsChangedFiished(true);
     setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
     setTodoList([
       ...todoList,
@@ -71,20 +120,26 @@ const Top: VFC = () => {
         onChange={handleChangeTaskInputForm}
         onClick={handleClickTaskAddButton}
       />
-      <TaskPanel
-        title="本日のたすく！"
-        taskData={todoList}
-        buttonLabel1="完了"
-        buttonColor1="#24C075"
-        className={styles.todaysTaskPanel}
-        onClick1={handleOnClickCompleteButton}
-        onClick2={handleOnClickDeleteButton}
-      />
-      <TaskTabs
-        finishedList={finishedTodoList}
-        onClick5={handleOnClickNotCompleteButton}
-        onClick6={handleOnClickFinishedTaskDeleteButton}
-      />
+      {isLoading ? (
+        <div>Loading</div>
+      ) : (
+        <div>
+          <TaskPanel
+            title="本日のたすく！"
+            taskData={todoList}
+            buttonLabel1="完了"
+            buttonColor1="#24C075"
+            className={styles.todaysTaskPanel}
+            onClick1={handleOnClickCompleteButton}
+            onClick2={handleOnClickDeleteButton}
+          />
+          <TaskTabs
+            finishedList={finishedTodoList}
+            onClick5={handleOnClickNotCompleteButton}
+            onClick6={handleOnClickFinishedTaskDeleteButton}
+          />
+        </div>
+      )}
       <Footer />
     </>
   );
