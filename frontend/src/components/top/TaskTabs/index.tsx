@@ -38,11 +38,7 @@ const theme = createTheme({
 });
 
 const TaskTabs: VFC = () => {
-  const dummyData = [
-    { id: 1, content: "あいうえお" },
-    { id: 2, content: "かきくけこ" },
-    { id: 3, content: "さしすせそ" },
-  ];
+  const dummyData = ["あいうえお", "かきくけこ", "さしすせそ"];
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -76,7 +72,7 @@ const TaskTabs: VFC = () => {
             TabIndicatorProps={{ style: { background: "#8EF3AA" } }}
           >
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <CheckBoxOutlineBlankOutlinedIcon
@@ -91,7 +87,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <ListAltOutlinedIcon
@@ -106,7 +102,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <CheckBoxOutlinedIcon
