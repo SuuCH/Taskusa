@@ -23,6 +23,7 @@ const Top: VFC = () => {
   const [isChangedTodo, setIsChangedTodo] = useState(false);
   const [isChangedFinishedTodo, setIsChangedFiished] = useState(false);
 
+  // Firebaseからのデータの取得
   useEffect(() => {
     (async () => {
       console.log(firebaseFirestore);
@@ -32,26 +33,28 @@ const Top: VFC = () => {
       setTodoList(responseTodo.data()?.tasks);
       setIsLoading(false);
     })();
-  }, [firebaseFirestore]);
+  }, [isLoading]);
 
+  // Todoに変更が加わった時
   useEffect(() => {
     if (isChangedTodo) {
       (async () => {
         setIsLoading(true);
-        const docRef = await updateDoc(
+        updateDoc(
           doc(firebaseFirestore, "todoList/todo"),
           { tasks: todoList }
         );
         setIsLoading(false);
       })();
     }
-  }, [todoList, isChangedTodo, firebaseFirestore]);
+  }, [todoList, isChangedTodo]);
 
+  // 完了済みに変更が加わった時
   useEffect(() => {
     if (isChangedFinishedTodo) {
       (async () => {
         setIsLoading(true);
-        const docRef = await updateDoc(
+        updateDoc(
           doc(firebaseFirestore, "todoList/finishedTodo"),
           { tasks: finishedTodoList }
         );
@@ -59,7 +62,7 @@ const Top: VFC = () => {
       })();
     }
     setIsChangedFiished(false);
-  }, [firebaseFirestore, finishedTodoList, isChangedFinishedTodo]);
+  }, [finishedTodoList, isChangedFinishedTodo]);
   // タスク入力フォームのハンドラ
   const handleChangeTaskInputForm = (
     e: ChangeEvent<HTMLInputElement>
