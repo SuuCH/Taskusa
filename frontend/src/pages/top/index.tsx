@@ -12,22 +12,54 @@ import styles from "./index.module.css";
 
 const Top: VFC = () => {
   const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState([] as string[]);
+  const [todoList, setTodoList] = useState([] as (string | undefined)[]);
+  const [finishedTodoList, setFinishedTodoList] = useState(
+    [] as (string | undefined)[]
+  );
+
+  // タスク入力フォームのハンドラ
   const handleChangeTaskInputForm = (
     e: ChangeEvent<HTMLInputElement>
   ): void => {
     setInput(e.target.value);
   };
+
+  // タスク追加ボタンハンドラ
   const handleClickTaskAddButton = (): void => {
-    setTodoList([...todoList, input]);
-    setInput("");
+    if (!!input) {
+      setTodoList([...todoList, input]);
+      setInput("");
+    } else {
+      alert("タスクを入力してください");
+    }
   };
 
-  const handleOnClickCompleteButton = (): void => {
-    console.log("完了押した");
-  };
+  // 本日タスクの削除ボタンハンドラ
   const handleOnClickDeleteButton = (index: number): void => {
     setTodoList(todoList.filter((_, idx) => idx !== index));
+  };
+
+  // 本日タスクの完了ボタンハンドラ
+  const handleOnClickCompleteButton = (index: number): void => {
+    setTodoList(todoList.filter((_, idx) => idx !== index));
+    setFinishedTodoList([
+      ...finishedTodoList,
+      todoList.find((_, idx) => idx === index),
+    ]);
+  };
+
+  // 完了済みタスクボタンハンドラ
+  const handleOnClickFinishedTaskDeleteButton = (index: number) => {
+    setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
+  };
+
+  // 未完了ボタンハンドラ
+  const handleOnClickNotCompleteButton = (index: number) => {
+    setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
+    setTodoList([
+      ...todoList,
+      finishedTodoList.find((_, idx) => idx === index),
+    ]);
   };
 
   return (
@@ -48,7 +80,11 @@ const Top: VFC = () => {
         onClick1={handleOnClickCompleteButton}
         onClick2={handleOnClickDeleteButton}
       />
-      <TaskTabs />
+      <TaskTabs
+        finishedList={finishedTodoList}
+        onClick5={handleOnClickNotCompleteButton}
+        onClick6={handleOnClickFinishedTaskDeleteButton}
+      />
       <Footer />
     </>
   );

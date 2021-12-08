@@ -1,18 +1,18 @@
 import clsx from "clsx";
-import type { MouseEventHandler, VFC } from "react";
+import type { VFC } from "react";
 import { List, ListItem } from "@material-ui/core";
 import styles from "./index.module.css";
 import { BaseButton } from "../../utils/BaseButton";
 
 interface Props {
   title: string;
-  taskData: string[];
+  taskData: (string | undefined)[];
   buttonLabel1: string;
   buttonLabel2?: string;
   buttonColor1: string;
   buttonColor2?: string;
   className?: string;
-  onClick1: MouseEventHandler<HTMLButtonElement>;
+  onClick1: (idx: number) => void;
   onClick2: (idx: number) => void;
 }
 
@@ -39,7 +39,7 @@ const TaskPanel: VFC<Props> = ({
                 <div className={styles.completeButton}>
                   <BaseButton
                     color={buttonColor1}
-                    onClick={onClick1}
+                    onClick={() => onClick1(index)}
                     text={buttonLabel1}
                   />
                 </div>
