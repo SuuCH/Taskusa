@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { MouseEventHandler, ChangeEventHandler, VFC } from "react";
 import { TextField } from "@material-ui/core";
 import {
@@ -11,15 +10,19 @@ import styles from "./index.module.css";
 
 interface Props {
   input: string;
-  onChange: ChangeEventHandler;
+  date: Date | null;
+  onChangeDate: any;
+  onChangeText: ChangeEventHandler;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const AddTaskForm: VFC<Props> = ({ input, onChange, onClick }: Props) => {
-  const [date, setDate] = useState<Date | null>(new Date());
-  const handleChangeDate = (newDate: Date | null) => {
-    setDate(newDate);
-  };
+const AddTaskForm: VFC<Props> = ({
+  input,
+  date,
+  onChangeDate,
+  onChangeText,
+  onClick,
+}: Props) => {
   return (
     <>
       <div className={styles.wrapper}>
@@ -32,7 +35,7 @@ const AddTaskForm: VFC<Props> = ({ input, onChange, onClick }: Props) => {
               placeholder="タスクを入力してください"
               variant="outlined"
               style={{ marginRight: "30px" }}
-              onChange={onChange}
+              onChange={onChangeText}
               value={input}
             />
           </form>
@@ -43,7 +46,7 @@ const AddTaskForm: VFC<Props> = ({ input, onChange, onClick }: Props) => {
               variant="inline"
               format="yyyy/MM/dd"
               value={date}
-              onChange={handleChangeDate}
+              onChange={onChangeDate}
             />
           </MuiPickersUtilsProvider>
           <BaseButton
