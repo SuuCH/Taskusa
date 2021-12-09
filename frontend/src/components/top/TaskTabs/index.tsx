@@ -37,12 +37,14 @@ const theme = createTheme({
   },
 });
 
-const TaskTabs: VFC = () => {
-  const dummyData = [
-    { id: 1, content: "あいうえお" },
-    { id: 2, content: "かきくけこ" },
-    { id: 3, content: "さしすせそ" },
-  ];
+interface Props {
+  finishedList: (string | undefined)[];
+  onClick5: (idx: number) => void;
+  onClick6: (idx: number) => void;
+}
+
+const TaskTabs: VFC<Props> = ({ finishedList, onClick5, onClick6 }: Props) => {
+  const dummyData = ["あいうえお", "かきくけこ", "さしすせそ"];
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -51,9 +53,6 @@ const TaskTabs: VFC = () => {
   };
   const handleOnClickToTodayButton = (): void => {
     console.log("今日へ押した");
-  };
-  const handleOnClickUndoButton = (): void => {
-    console.log("元に戻す押した");
   };
   const handleOnClickDeleteButton = (): void => {
     console.log("削除押した");
@@ -76,7 +75,7 @@ const TaskTabs: VFC = () => {
             TabIndicatorProps={{ style: { background: "#8EF3AA" } }}
           >
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <CheckBoxOutlineBlankOutlinedIcon
@@ -91,7 +90,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <ListAltOutlinedIcon
@@ -106,7 +105,7 @@ const TaskTabs: VFC = () => {
               }
             />
             <Tab
-              style={{backgroundColor:"#DAF8E7"}}
+              style={{ backgroundColor: "#DAF8E7" }}
               label={
                 <div>
                   <CheckBoxOutlinedIcon
@@ -144,11 +143,11 @@ const TaskTabs: VFC = () => {
           <TabPanel value={value} index={2}>
             <TaskPanel
               title="完了済みのたすく！"
-              taskData={dummyData}
+              taskData={finishedList}
               buttonLabel1="元に戻す"
               buttonColor1="#69A41F"
-              onClick1={handleOnClickUndoButton}
-              onClick2={handleOnClickDeleteButton}
+              onClick1={onClick5}
+              onClick2={onClick6}
             />
           </TabPanel>
         </Paper>
