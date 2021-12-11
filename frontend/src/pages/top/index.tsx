@@ -77,7 +77,7 @@ const Top: VFC = () => {
 
   // タスク追加ボタンハンドラ
   const handleClickTaskAddButton = (): void => {
-    if (!!input) {
+    if (input.task !== undefined) {
       setIsChangedTodo(true);
       setTodoList([...todoList, input]);
       setInput({} as Task);

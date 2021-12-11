@@ -30,6 +30,7 @@ const AddTaskForm: VFC<Props> = ({
           <form className={styles.form}>
             <TextField
               className={styles.textField}
+              inputProps={{ minLength:1 }}
               required
               hiddenLabel
               placeholder="タスクを入力してください"
