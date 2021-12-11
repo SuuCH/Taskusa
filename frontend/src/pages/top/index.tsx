@@ -13,6 +13,7 @@ import type { Task } from "../../types/task";
 import type { ChangeEvent, VFC } from "react";
 
 import styles from "./index.module.css";
+import { LoadingLayout } from "../../components/utils/LoadingLayout";
 
 const Top: VFC = () => {
   const [input, setInput] = useState({} as Task);
@@ -135,7 +136,7 @@ const Top: VFC = () => {
         onClick={handleClickTaskAddButton}
       />
       {isLoading ? (
-        <div>Loading</div>
+        <LoadingLayout />
       ) : (
         <div>
           <TaskPanel
