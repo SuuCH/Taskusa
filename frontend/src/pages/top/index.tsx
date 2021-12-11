@@ -9,16 +9,18 @@ import { firebaseFirestore } from "../../api/firebase";
 
 import { getDoc, doc, updateDoc } from "@firebase/firestore";
 
+import type { Task } from "../../types/task";
 import type { ChangeEvent, VFC } from "react";
 
 import styles from "./index.module.css";
 
 const Top: VFC = () => {
-  const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState([] as (string | undefined)[]);
+  const [input, setInput] = useState({} as Task);
+  const [todoList, setTodoList] = useState([] as (Task | undefined)[]);
   const [finishedTodoList, setFinishedTodoList] = useState(
-    [] as (string | undefined)[]
+    [] as (Task | undefined)[]
   );
+  const [date, setDate] = useState<Date | null>(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [isChangedTodo, setIsChangedTodo] = useState(false);
   const [isChangedFinishedTodo, setIsChangedFiished] = useState(false);
@@ -31,6 +33,10 @@ const Top: VFC = () => {
         doc(firebaseFirestore, "todoList/todo")
       );
       setTodoList(responseTodo.data()?.tasks);
+      const responseFinishedTodo = await getDoc(
+        doc(firebaseFirestore, "todoList/finishedTodo")
+      );
+      setFinishedTodoList(responseFinishedTodo.data()?.tasks);
       setIsLoading(false);
     })();
   }, [isLoading]);
@@ -40,10 +46,7 @@ const Top: VFC = () => {
     if (isChangedTodo) {
       (async () => {
         setIsLoading(true);
-        updateDoc(
-          doc(firebaseFirestore, "todoList/todo"),
-          { tasks: todoList }
-        );
+        updateDoc(doc(firebaseFirestore, "todoList/todo"), { tasks: todoList });
         setIsLoading(false);
       })();
     }
@@ -54,10 +57,9 @@ const Top: VFC = () => {
     if (isChangedFinishedTodo) {
       (async () => {
         setIsLoading(true);
-        updateDoc(
-          doc(firebaseFirestore, "todoList/finishedTodo"),
-          { tasks: finishedTodoList }
-        );
+        updateDoc(doc(firebaseFirestore, "todoList/finishedTodo"), {
+          tasks: finishedTodoList,
+        });
         setIsLoading(false);
       })();
     }
@@ -67,15 +69,18 @@ const Top: VFC = () => {
   const handleChangeTaskInputForm = (
     e: ChangeEvent<HTMLInputElement>
   ): void => {
-    setInput(e.target.value);
+    setInput({
+      task: e.target.value,
+      createdAt: new Date(),
+    });
   };
 
   // タスク追加ボタンハンドラ
   const handleClickTaskAddButton = (): void => {
-    if (!!input) {
+    if (input.task !== undefined) {
       setIsChangedTodo(true);
       setTodoList([...todoList, input]);
-      setInput("");
+      setInput({} as Task);
     } else {
       alert("タスクを入力してください");
     }
@@ -113,14 +118,20 @@ const Top: VFC = () => {
       finishedTodoList.find((_, idx) => idx === index),
     ]);
   };
-
+  // DatePickerが変更された時のハンドラ
+  const onChangeDate = (newDate: Date | null) => {
+    setDate(newDate);
+    console.log(newDate);
+  };
   return (
     <>
       <Navber />
       <Calendar />
       <AddTaskForm
-        input={input}
-        onChange={handleChangeTaskInputForm}
+        input={input.task}
+        date={date}
+        onChangeText={handleChangeTaskInputForm}
+        onChangeDate={onChangeDate}
         onClick={handleClickTaskAddButton}
       />
       {isLoading ? (

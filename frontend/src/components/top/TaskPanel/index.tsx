@@ -1,12 +1,13 @@
 import clsx from "clsx";
 import type { VFC } from "react";
+import type { Task } from "../../../types/task";
 import { List, ListItem } from "@material-ui/core";
 import styles from "./index.module.css";
 import { BaseButton } from "../../utils/BaseButton";
 
 interface Props {
   title: string;
-  taskData: (string | undefined)[];
+  taskData: (Task | undefined)[];
   buttonLabel1: string;
   buttonLabel2?: string;
   buttonColor1: string;
@@ -34,7 +35,7 @@ const TaskPanel: VFC<Props> = ({
         <List style={{ fontSize: "20px" }}>
           {taskData.map((task, index) => (
             <ListItem style={{ paddingLeft: "0px" }}>
-              <p className={styles.listItemText}>{task}</p>
+              <p className={styles.listItemText}>{task?.task}</p>
               <div className={styles.taskButtonWrapper}>
                 <div className={styles.completeButton}>
                   <BaseButton
