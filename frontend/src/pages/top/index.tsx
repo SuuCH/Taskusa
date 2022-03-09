@@ -17,11 +17,11 @@ import { LoadingLayout } from "../../components/utils/LoadingLayout";
 
 const Top: VFC = () => {
   const [input, setInput] = useState({} as Task);
-  const [todoList, setTodoList] = useState([] as (Task | undefined)[]);
+  const [todoList, setTodoList] = useState([] as (Task | undefined)[]); //本日のタスク
   const [finishedTodoList, setFinishedTodoList] = useState(
     [] as (Task | undefined)[]
-  );
-  const [date, setDate] = useState<Date | null>(new Date());
+  ); // 完了済みタスク
+  const [date, setDate] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [isChangedTodo, setIsChangedTodo] = useState(false);
   const [isChangedFinishedTodo, setIsChangedFiished] = useState(false);
@@ -72,7 +72,7 @@ const Top: VFC = () => {
   ): void => {
     setInput({
       task: e.target.value,
-      createdAt: new Date(),
+      createdAt: date,
     });
   };
 
@@ -84,12 +84,8 @@ const Top: VFC = () => {
       setInput({} as Task);
     } else {
       alert("タスクを入力してください");
+      setTodoList([]);
     }
-  };
-
-  // 本日タスクの削除ボタンハンドラ
-  const handleOnClickDeleteButton = (index: number): void => {
-    setTodoList(todoList.filter((_, idx) => idx !== index));
   };
 
   // 本日タスクの完了ボタンハンドラ
@@ -103,24 +99,36 @@ const Top: VFC = () => {
     ]);
   };
 
+  // 本日タスクの削除ボタンハンドラ
+  const handleOnClickTodaysTodoDeleteButton = (index: number): void => {
+    setTodoList(todoList.filter((_, idx) => idx !== index));
+  };
+
+  // 完了済みタスクのもとに戻すボタンハンドラ
+  const handleOnClickNotCompleteButton = (index: number) => {
+    setIsChangedTodo(true);
+    setIsChangedFiished(true);
+    setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
+    const notCompletedTask = finishedTodoList.find((_, idx) => idx === index);
+    setTodoList([...todoList, notCompletedTask]);
+  };
   // 完了済みタスク削除ボタンハンドラ
   const handleOnClickFinishedTaskDeleteButton = (index: number) => {
     setIsChangedFiished(true);
     setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
   };
-
-  // もとに戻すボタンハンドラ
-  const handleOnClickNotCompleteButton = (index: number) => {
-    setIsChangedTodo(true);
-    setIsChangedFiished(true);
-    setFinishedTodoList(finishedTodoList.filter((_, idx) => idx !== index));
-    setTodoList([
-      ...todoList,
-      finishedTodoList.find((_, idx) => idx === index),
-    ]);
+  // 未完了タスクの削除ボタンハンドラ
+  const handleOnClickNoCompleteTodoDeleteButton = (index: number): void => {
+    console.log("今は削除できません＞＜");
   };
+
+  // 未完了タスクの今日へボタンハンドラ
+  const handleOnClickToTodayButton = (): void => {
+    console.log("今日へ押した");
+  };
+
   // DatePickerが変更された時のハンドラ
-  const onChangeDate = (newDate: Date | null) => {
+  const onChangeDate = (newDate: Date) => {
     setDate(newDate);
     console.log(newDate);
   };
@@ -140,16 +148,20 @@ const Top: VFC = () => {
       ) : (
         <div>
           <TaskPanel
+            tabType="today"
             title="本日のたすく！"
             taskData={todoList}
             buttonLabel1="完了"
             buttonColor1="#24C075"
             className={styles.todaysTaskPanel}
             onClick1={handleOnClickCompleteButton}
-            onClick2={handleOnClickDeleteButton}
+            onClick2={handleOnClickTodaysTodoDeleteButton}
           />
           <TaskTabs
+            todoList={todoList}
             finishedList={finishedTodoList}
+            onClick1={handleOnClickToTodayButton}
+            onClick2={handleOnClickNoCompleteTodoDeleteButton}
             onClick5={handleOnClickNotCompleteButton}
             onClick6={handleOnClickFinishedTaskDeleteButton}
           />

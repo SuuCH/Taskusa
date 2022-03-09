@@ -39,12 +39,22 @@ const theme = createTheme({
 });
 
 interface Props {
+  todoList: (Task | undefined)[];
   finishedList: (Task | undefined)[];
+  onClick1: (idx: number) => void;
+  onClick2: (idx: number) => void;
   onClick5: (idx: number) => void;
   onClick6: (idx: number) => void;
 }
 
-const TaskTabs: VFC<Props> = ({ finishedList, onClick5, onClick6 }: Props) => {
+const TaskTabs: VFC<Props> = ({
+  todoList,
+  finishedList,
+  onClick1,
+  onClick2,
+  onClick5,
+  onClick6,
+}: Props) => {
   const dummyData = [
     {
       task: "コーディング試験受ける",
@@ -136,16 +146,18 @@ const TaskTabs: VFC<Props> = ({ finishedList, onClick5, onClick6 }: Props) => {
           </Tabs>
           <TabPanel value={value} index={0}>
             <TaskPanel
+              tabType="notComplete"
               title="未完了のたすく！"
-              taskData={dummyData}
+              taskData={todoList}
               buttonLabel1="今日へ"
               buttonColor1="#104F1B"
-              onClick1={handleOnClickToTodayButton}
-              onClick2={handleOnClickDeleteButton}
+              onClick1={onClick1}
+              onClick2={onClick2}
             />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <TaskPanel
+              tabType="plan"
               title="2021年12月10日（金）のたすく！"
               taskData={dummyData}
               buttonLabel1="今日へ"
@@ -156,6 +168,7 @@ const TaskTabs: VFC<Props> = ({ finishedList, onClick5, onClick6 }: Props) => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <TaskPanel
+              tabType="complete"
               title="完了済みのたすく！"
               taskData={finishedList}
               buttonLabel1="元に戻す"
