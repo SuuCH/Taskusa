@@ -124,9 +124,6 @@ const Top: VFC = () => {
 
   // 未完了タスクの今日へボタンハンドラ
   const handleOnClickToTodayButton = (): void => {
-    {
-      /* 後で実装 */
-    }
     console.log("今日へ押した");
   };
 
